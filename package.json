@@ -1,5 +1,5 @@
 {
-  "name": "vue3-q-tel-input",
+  "name": "@jeancaffou/vue3-q-tel-input",
   "version": "2.0.5",
   "description": "Vue 3 telephone input implemented over Quasar framework",
   "scripts": {
@@ -13,9 +13,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/CdTgr/vue3-q-tel-input.git"
+    "url": "https://github.com/jeancaffou/vue3-q-tel-input/.git"
   },
-  "homepage": "https://github.com/CdTgr/vue3-q-tel-input/blob/master/readme.md",
+  "homepage": "https://github.com/jeancaffou/vue3-q-tel-input/blob/master/readme.md",
   "keywords": [
     "vue3",
     "vue-3",
