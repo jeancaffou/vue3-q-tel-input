@@ -1,6 +1,6 @@
 ### Vue3 Quasar Telephone Input ( VUE3-Q-TEL-INPUT )
 
-The plugin was made over Vue3 while considering the [Quasar Framework v2.X](https://quasar.dev/). The plugin provides auto country detection on user inputs as well as dropdown for country which supports search by name, country code, and country phone code.
+The plugin was made over Vue3 while considering the [Quasar Framework v2.X](https://quasar.dev/). The plugin provides auto country detection on user inputs as well as dropdown for country which supports search by name, country code, and country phone code. The countries are sorted alphabetically.
 
 A live preview for the code is available in [CodePen](https://codepen.io/CdTgr/full/PoMmeRZ)
 
@@ -21,25 +21,25 @@ For v1 documenation please refer [here](./docs/v1.md)
 yarn
 
 ```
-yarn add vue3-q-tel-input
+yarn add vue3-q-tel-input-sorted
 ```
 
 npm
 
 ```
-npm i vue3-q-tel-input
+npm i vue3-q-tel-input-sorted
 ```
 
 Import the component as
 
 ```
-import Vue3QTelInput from 'vue3-q-tel-input'
+import Vue3QTelInput from 'vue3-q-tel-input-sorted'
 ```
 
 Import the styles as
 
 ```
-import 'vue3-q-tel-input/dist/style.css'
+import 'vue3-q-tel-input-sorted/dist/style.css'
 ```
 
 ##### CDN / UMD
@@ -47,15 +47,15 @@ import 'vue3-q-tel-input/dist/style.css'
 ###### UNPKG
 
 ```
-http://unpkg.com/vue3-q-tel-input@latest/dist/vue3-q-tel-input.umd.js
-http://unpkg.com/vue3-q-tel-input@latest/dist/style.css
+http://unpkg.com/vue3-q-tel-input-sorted@latest/dist/vue3-q-tel-input.umd.js
+http://unpkg.com/vue3-q-tel-input-sorted@latest/dist/style.css
 ```
 
 ###### JSDELIVR
 
 ```
-https://cdn.jsdelivr.net/npm/vue3-q-tel-input@latest/dist/vue3-q-tel-input.umd.js
-https://cdn.jsdelivr.net/npm/vue3-q-tel-input@latest/dist/style.css
+https://cdn.jsdelivr.net/npm/vue3-q-tel-input-sorted@latest/dist/vue3-q-tel-input.umd.js
+https://cdn.jsdelivr.net/npm/vue3-q-tel-input-sorted@latest/dist/style.css
 ```
 
 #### Usage
