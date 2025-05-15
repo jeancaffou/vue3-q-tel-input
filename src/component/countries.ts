@@ -1,7 +1,9 @@
 import { Country } from './types'
 import { countryInformation as all } from './data'
 
-export default all
+export default all.sort((a, b) =>
+  a.name.localeCompare(b.name, undefined, { sensitivity: 'base' })
+);
 
 export const getDefault = (iso2 = 'us') => all.find(a => a.iso2 === iso2.trim().toUpperCase())
 
