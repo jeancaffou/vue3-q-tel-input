@@ -1,5 +1,5 @@
 {
-  "name": "@jeancaffou/vue3-q-tel-input",
+  "name": "vue3-q-tel-input-sorted",
   "version": "2.0.5",
   "description": "Vue 3 telephone input implemented over Quasar framework",
   "scripts": {
