@@ -1,6 +1,6 @@
 {
   "name": "vue3-q-tel-input-sorted",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "Vue 3 telephone input implemented over Quasar framework",
   "scripts": {
     "dev": "NODE_ENV=development vite",
@@ -76,12 +76,12 @@
     "rollup": "^4.24.0",
     "sass": "^1.79.5",
     "terser": "^5.34.1",
-    "typescript": "^5.6.3",
+    "typescript": "^5.8.3",
     "typescript-eslint": "^8.9.0",
-    "vite": "^5.4.9",
+    "vite": "^6.3.5",
     "vite-plugin-dts": "^4.2.4",
     "vue": "^3.5.12",
-    "vue-tsc": "^2.1.6"
+    "vue-tsc": "^2.2.10"
   },
   "peerDependencies": {
     "quasar": "^2.0.0",

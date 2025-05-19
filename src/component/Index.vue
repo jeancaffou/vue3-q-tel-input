@@ -151,6 +151,13 @@ const phoneChanged = () => {
     return _validate()
   }
 
+  if (!$props.disableAutoCountrySelection && dial.value[0] !== '+') {
+    const autoCountry = getCountryByDialCode('+' + dial.value.replace(/\D/g, ''))
+    if (autoCountry && autoCountry.iso2 !== countryModel.value?.iso2) {
+      countryModel.value = autoCountry
+    }
+  }
+
   const determinedCountry = getCountryByDialCode(completeNumber.value)
   if (determinedCountry) {
     const parsedNumber = (() => {
