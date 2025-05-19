@@ -37,7 +37,7 @@
         </div>
       </div>
     </template>
-    <template #after-options>
+    <template #before-options>
       <div class="v3-q-tel--country-selector last-search-item q-pa-sm">
         <q-input
           ref="searchInput"
