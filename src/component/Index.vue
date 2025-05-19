@@ -152,9 +152,23 @@ const phoneChanged = () => {
   }
 
   if (!$props.disableAutoCountrySelection && dial.value[0] !== '+') {
-    const autoCountry = getCountryByDialCode('+' + dial.value.replace(/\D/g, ''))
-    if (autoCountry && autoCountry.iso2 !== countryModel.value?.iso2) {
-      countryModel.value = autoCountry
+    const rawDigits = dial.value.replace(/\D/g, '')
+    let parsed
+    try {
+      parsed = parsePhoneNumber('+' + rawDigits)
+    } catch {}
+
+    if (parsed && parsed.isValid()) {
+      const autoCountry = getDefault(parsed.country?.toLowerCase() || '')
+
+      if (autoCountry && autoCountry.iso2 !== countryModel.value?.iso2) {
+        countryModel.value = autoCountry // switch the flag
+      }
+
+      dial.value = parsed.nationalNumber.replace(/^0+/, '')
+      $model.value = parsed.formatInternational()
+
+      return _validate()
     }
   }
 

@@ -112,7 +112,7 @@ _example_
 #### Props
 
 | Prop                           | Type    | Required | Description                                                                           |
-| ------------------------------ | ------- | -------- | ------------------------------------------------------------------------------------- |
+| ------------------------------ | ------- | -------- |---------------------------------------------------------------------------------------|
 | required                       | Boolean | No       | Shows error validation when the field is empty                                        |
 | search-text                    | String  | No       | The label for the search field inside the country dropdown                            |
 | search-icon                    | String  | No       | Set the icon for the search field to something else                                   |
@@ -123,6 +123,8 @@ _example_
 | no-results-text                | String  | No       | Set a string when the search results nothing, default: 'No results found'             |
 | disable-auto-country-selection | Boolean | No       | Prevent the input field value from changing the country selection                     |
 | autofocus-input                | Boolean | No       | Focus automatically to the search input when country selection is opened              |
+| autofocus-input                | Boolean | No       | Focus automatically to the search input when country selection is opened              |
+| disable-auto-country-selection | Boolean | No       | Disable country selection if phone number without leading + is entered                |
 
 #### Events
 
