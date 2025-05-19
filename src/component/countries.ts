@@ -44,18 +44,30 @@ export const getCountryByDialCode = (val = '') =>
   all.find(country => isNumberInCountry(val, country) === 2)
 
 export const filterCountries = (term: string): Country[] => {
-  term = term.toLowerCase()
+  term = term.trim().toLowerCase()
+  if (term === '') return all.slice()
 
-  if (term.startsWith('+')) {
-    return (
-      all.filter(country => isNumberInCountry(term, country) === 1) ||
-      all.filter(country => isNumberInCountry(term, country) === 2)
+  const looksNumeric  = /^\+?\d+$/.test(term)
+  const numericNeedle = term.replace(/^\+/, '')
+
+  if (looksNumeric) {
+    const needleWithPlus = `+${numericNeedle}`
+
+    const exact = all.filter(c => isNumberInCountry(needleWithPlus, c) === 1)
+    const broad = all.filter(c => isNumberInCountry(needleWithPlus, c) === 2)
+
+    const byPrefix = all.filter(
+      c => c.dialCode.replace('+', '').startsWith(numericNeedle)
     )
+
+    return Array.from(new Set([...exact, ...broad, ...byPrefix]))
   }
 
-  return all.filter(country => {
-    return country.iso2.toLowerCase().includes(term) || country.name.toLowerCase().includes(term)
-  })
+  return all.filter(
+    c =>
+      c.iso2.toLowerCase().includes(term) ||
+      c.name.toLowerCase().includes(term)
+  )
 }
 
 export const getProperNumber = (phone: string) => phone.match(/[+\d]+/g)?.join('') || phone

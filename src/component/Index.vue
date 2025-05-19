@@ -151,6 +151,10 @@ const phoneChanged = () => {
     return _validate()
   }
 
+  if (dial.value.startsWith('00')) {
+    dial.value = '+' + dial.value.slice(2)
+  }
+
   if (!$props.disableAutoCountrySelection && dial.value[0] !== '+') {
     const rawDigits = dial.value.replace(/\D/g, '')
     let parsed
@@ -162,7 +166,7 @@ const phoneChanged = () => {
       const autoCountry = getDefault(parsed.country?.toLowerCase() || '')
 
       if (autoCountry && autoCountry.iso2 !== countryModel.value?.iso2) {
-        countryModel.value = autoCountry // switch the flag
+        countryModel.value = autoCountry
       }
 
       dial.value = parsed.nationalNumber.replace(/^0+/, '')
