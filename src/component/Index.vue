@@ -146,48 +146,71 @@ const _validate = (force = false) => {
   return isValid
 }
 
-const phoneChanged = () => {
-  if (!dial.value) {
-    return _validate()
+const commitIfValid = (parsed: ReturnType<typeof parsePhoneNumber> | undefined) => {
+  if (!parsed?.isValid()) return
+
+  let newDial = parsed.nationalNumber.replace(/^0+/, '')
+  const suffixes = countryModel.value?.dialCodeSuffixes ?? []
+
+  const stripSuffixes = (num: string) => {
+    let changed
+    do {
+      changed = false
+      for (const s of suffixes) {
+        if (num.startsWith(s)) {
+          num = num.slice(s.length)
+          changed = true
+        }
+      }
+    } while (changed)
+    return num
   }
 
+  newDial = stripSuffixes(newDial)
+
+  const newIntl = parsed.formatInternational()
+
+  if (dial.value !== newDial) dial.value = newDial
+  if ($model.value !== newIntl) $model.value = newIntl
+}
+
+const phoneChanged = () => {
+  if (!dial.value) return _validate()
   if (dial.value.startsWith('00')) {
     dial.value = '+' + dial.value.slice(2)
   }
 
-  if (!$props.disableAutoCountrySelection && dial.value[0] !== '+') {
-    const rawDigits = dial.value.replace(/\D/g, '')
-    let parsed
+  const raw = dial.value.replace(/\D/g, '')
+
+  if (
+    !$props.disableAutoCountrySelection &&
+    dial.value[0] !== '+' &&
+    !dial.value.startsWith(countryModel.value?.dialCode || '')
+  ) {
     try {
-      parsed = parsePhoneNumber('+' + rawDigits)
-    } catch {}
-
-    if (parsed && parsed.isValid()) {
-      const autoCountry = getDefault(parsed.country?.toLowerCase() || '')
-
-      if (autoCountry && autoCountry.iso2 !== countryModel.value?.iso2) {
-        countryModel.value = autoCountry
+      const auto = parsePhoneNumber('+' + raw)
+      if (auto.isValid()) {
+        const ac = getDefault(auto.country?.toLowerCase() || '')
+        if (ac && ac.iso2 !== countryModel.value?.iso2) {
+          countryModel.value = ac
+        }
+        commitIfValid(auto)
+        return _validate()
       }
-
-      dial.value = parsed.nationalNumber.replace(/^0+/, '')
-      $model.value = parsed.formatInternational()
-
-      return _validate()
-    }
+    } catch {}
   }
 
-  const determinedCountry = getCountryByDialCode(completeNumber.value)
-  if (determinedCountry) {
-    const parsedNumber = (() => {
-      try {
-        return parsePhoneNumber(completeNumber.value, determinedCountry.iso2 as CountryCode)
-      } catch {}
-    })()
-    if (parsedNumber) {
-      countryModel.value = determinedCountry
-      dial.value = parsedNumber.formatNational().replace(/^0/, '')
-      $model.value = parsedNumber.formatInternational()
-    }
+  const det = getCountryByDialCode(completeNumber.value)
+  if (det) {
+    try {
+      const p = parsePhoneNumber(completeNumber.value, det.iso2 as CountryCode)
+      countryModel.value = det
+      commitIfValid(p)
+    } catch {}
+  }
+
+  if (countryModel.value?.iso2 === 'AX') {
+    dial.value = dial.value.replace(/^(?:18)+/, '')
   }
 
   return _validate()

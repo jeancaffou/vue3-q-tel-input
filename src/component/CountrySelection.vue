@@ -1,5 +1,6 @@
 <template>
   <q-select
+    ref="countrySel"
     v-bind="$props"
     :model-value="country"
     :options="countryOptions"
@@ -7,7 +8,9 @@
     hide-bottom-space
     hide-dropdown-icon
     borderless
-    virtual-scroll-slice-size="9999"
+    :virtual-scroll-slice-size="9999"
+    :virtual-scroll-item-size="29"
+    :virtual-scroll-sticky-size-start="56"
     class="no-inherit-feedback no-feedback v3-q-tel-input--country"
     :class="$props.class"
     :menu-offset="[12, 0]"
@@ -108,6 +111,8 @@ const searchText = ref('')
 const countryOptions = ref<CountryOption[]>([...countries])
 const searchInput = ref<QInput>()
 
+const countrySel = ref<{ virtualScrollRef?: any } | null>(null)
+
 const focusInput = () => {
   nextTick(() => {
     if ($props.autofocusInput && searchInput.value) {
@@ -170,9 +175,10 @@ watch(
 <style lang="scss" scoped>
 .v3-q-tel--country-selector {
   position: sticky !important;
-  bottom: 0 !important;
+  top: 0 !important;
   left: 0 !important;
   right: 0 !important;
+  z-index: 1 !important;
 }
 .mdi-border-bottom::before {
   content: '';

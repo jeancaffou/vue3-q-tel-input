@@ -39,9 +39,21 @@ export const getCountryCodeFromPhoneNumber = (dial: string) => {
   )
 }
 
-export const getCountryByDialCode = (val = '') =>
-  all.find(country => isNumberInCountry(val, country) === 1) ||
-  all.find(country => isNumberInCountry(val, country) === 2)
+const mostSpecific = (a: Country, b: Country) => {
+  const lenA = a.dialCode.length +
+    (a.dialCodeSuffixes.find(s => isNumberInCountry(`+${b.dialCode.replace('+','')}${s}`, a) === 1)?.length ?? 0)
+  const lenB = b.dialCode.length +
+    (b.dialCodeSuffixes.find(s => isNumberInCountry(`+${a.dialCode.replace('+','')}${s}`, b) === 1)?.length ?? 0)
+  return lenB - lenA
+}
+
+export const getCountryByDialCode = (val = ''): Country | undefined => {
+  const exact   = all.filter(c => isNumberInCountry(val, c) === 1).sort(mostSpecific)
+  if (exact.length) return exact[0]
+
+  const partial = all.filter(c => isNumberInCountry(val, c) === 2).sort(mostSpecific)
+  return partial[0]
+}
 
 export const filterCountries = (term: string): Country[] => {
   term = term.trim().toLowerCase()
