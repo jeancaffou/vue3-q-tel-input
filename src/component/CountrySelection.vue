@@ -1,6 +1,5 @@
 <template>
   <q-select
-    ref="countrySel"
     v-bind="$props"
     :model-value="country"
     :options="countryOptions"
@@ -110,8 +109,6 @@ const country = defineModel<Country>('country', {
 const searchText = ref('')
 const countryOptions = ref<CountryOption[]>([...countries])
 const searchInput = ref<QInput>()
-
-const countrySel = ref<{ virtualScrollRef?: any } | null>(null)
 
 const focusInput = () => {
   nextTick(() => {
