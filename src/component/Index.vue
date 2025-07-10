@@ -182,11 +182,7 @@ const phoneChanged = () => {
 
   const raw = dial.value.replace(/\D/g, '')
 
-  if (
-    !$props.disableAutoCountrySelection &&
-    dial.value[0] !== '+' &&
-    !dial.value.startsWith(countryModel.value?.dialCode || '')
-  ) {
+  if (!$props.disableAutoCountrySelection && dial.value.startsWith('+')) {
     try {
       const auto = parsePhoneNumber('+' + raw)
       if (auto.isValid()) {
